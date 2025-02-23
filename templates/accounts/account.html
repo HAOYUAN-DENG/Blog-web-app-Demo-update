@@ -34,7 +34,7 @@
                 if (response.status === 200) {
                     // Build the HTML string to display user details in a table format
                     let html = `
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped account-table">
                             <tbody>
                                 <tr>
                                     <td><strong>Account ID:</strong> ${data.id}</td>
@@ -56,9 +56,9 @@
                         // Loop through each post and create a Bootstrap card for each one
                         data.posts.forEach(post => {
                             html += `
-                                <div class="card border border-dark mt-3">
+                                <div class="card card-sm border border-dark mt-3">
                                     <div class="card-header bg-dark text-white">
-                                        <h4 class="mb-0">${post.title}</h4>
+                                        <h3 class="mb-0">${post.title}</h3>
                                         <small>${post.created}</small>
                                     </div>
                                     <div class="card-body">

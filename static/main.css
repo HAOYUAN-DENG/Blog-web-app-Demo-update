@@ -1,17 +1,51 @@
-     /* Enhance the table appearance */
- .table {
-     background-color: black; /* Light gray background for better readability */
- }
+/* Enhance the table appearance */
+.table {
+    background-color: black; /* Light gray background for better readability */
+}
+
 /* Customize card styling with a subtle shadow and smooth hover effect */
 .card {
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease;
+    box-shadow: 0 0.4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
 }
+
 .card:hover {
-    transform: scale(1.02);
+    transform: scale(1.03);
 }
 
 /* Add margin to alerts for spacing */
 .alert {
     margin-top: 20px;
+}
+
+.card-sm {
+    max-width: 600px; /* Limits the card's maximum width */
+    margin: 10px auto; /* Reduces margin and centers the card */
+
+}
+
+
+/* 1) Slight box shadow and rounded corners */
+.account-table {
+    background-color: #fff;               /* Ensures white background */
+    border: 1.5px solid #dee2e6;           /* Soft gray border */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle shadow */
+    border-radius: 1px;                  /* Rounded corners */
+    margin-bottom: 1.5rem;               /* Space after table */
+}
+
+/* 2) Increase padding in cells for better readability */
+.account-table td {
+    padding: 0.75rem;
+    vertical-align: middle;              /* Center text vertically */
+}
+
+/* 3) Darken the strong text slightly */
+.account-table td strong {
+    color: #333;
+}
+
+/* 4) Adjust the margin-top for .mt-4 if you want it smaller/larger */
+.mt-4 {
+    margin-top: 1.5rem ;       /* 1.5rem is roughly 24px */
 }
