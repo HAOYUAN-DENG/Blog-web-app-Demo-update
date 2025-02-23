@@ -21,6 +21,7 @@ A Flask-based blog demo project with user registration, multi-factor authenticat
 - [License](#license)
 
 ### Overview
+#### quick login account/password: Q@outlook.com/991208qqW!
 
 This project is a blog demo application built using Flask. It offers:
 
@@ -44,13 +45,26 @@ This project is a blog demo application built using Flask. It offers:
 ```
 ├── app.py               # Main application entry point
 ├── config.py            # Configuration and application setup (database, logging, security, etc.)
-├── Dockerfile           # Docker configuration for containerizing the application
-├── requirements.txt     # Python dependencies for the project
-├── templates/           # HTML templates for various pages
-├── accounts/            # API and view routes for user account management
-├── posts/               # Post views and forms
+├── templates/
+│   ├── base.html        # Base template with navigation and common layout
+│   ├── index.html       # Home page
+│   ├── account.html     # User account page
+│   ├── login.html       # Login page
+│   ├── registration.html# Registration page
+│   ├── setup_mfa.html   # MFA setup page
+│   ├── posts/           # Post related templates:
+│   │   ├── create.html  # Create post page
+│   │   ├── update.html  # Update post page
+│   │   └── posts.html   # List posts page
+│   └── security.html    # Security monitoring page
+├── accounts/            # Contains API and view routes for user account management
+│   ├── api.py           # RESTful API endpoints for account operations
+│   └── views.py         # Account-related view routes (login, registration, account, MFA)
+├── posts/               # Contains post views and forms
+│   └── views.py         # Post creation, update, deletion, and display logic
 ├── forms.py             # WTForms definitions for registration, login, and posts
 └── logs.log             # Log file storing user activity logs
+└── Dockerfile           # Docker setup
 ```
 
 ### Installation
@@ -84,6 +98,7 @@ This project is a blog demo application built using Flask. It offers:
    ```
 
 4. **Initialize the Database:**
+   (or simply use the database provided called blog.db)
    ```bash
    flask db init
    flask db migrate
@@ -97,6 +112,7 @@ This project is a blog demo application built using Flask. It offers:
    ```bash
    flask run
    ```
+   (or simply click Pycharm run UI)
 
 2. **Access the Application:**
 
@@ -104,11 +120,11 @@ This project is a blog demo application built using Flask. It offers:
 
 3. **Features Overview:**
 
-    - **Home Page:** Displays a simple welcome message.
-    - **Registration & Login:** Use the registration and login pages to create an account. MFA setup is required on the first login.
-    - **Post Management:** After logging in, end users can create, view, update, and delete posts.
-    - **Security Page:** Accessible by security administrators to view recent security logs and user event logs.
-    - **API Endpoints:** RESTful API routes are available under `/api/accounts` for operations like registration, login, account details, MFA setup, and account unlocking (accessible by `db_admin`).
+   - **Home Page:** Displays a simple welcome message.
+   - **Registration & Login:** Use the registration and login pages to create an account. MFA setup is required on the first login.
+   - **Post Management:** After logging in, end users can create, view, update, and delete posts.
+   - **Security Page:** Accessible by security administrators to view recent security logs and user event logs.
+   - **API Endpoints:** RESTful API routes are available under `/api/accounts` for operations like registration, login, account details, MFA setup, and account unlocking (accessible by `db_admin`).
 
 ### Docker
 
