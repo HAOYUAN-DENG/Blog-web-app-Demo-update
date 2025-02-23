@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='main.css') }}">
+
+    <div class="container mt-4">
+        <!-- Page Title -->
+        <h3 class="mb-4">Your Account Information</h3>
+
+        <!-- This div will be populated by the JavaScript with user details and posts -->
+        <div id="account-info">
+            <!-- User info and posts will be loaded here by JavaScript -->
+        </div>
+    </div>
+
+
+
+    <script>
+        // Function to load the account information from the API
+        async function loadAccountInfo() {
+            try {
+                // Send a GET request to fetch user account details
+                const response = await fetch('/api/accounts/account', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                // Parse the response JSON
+                const data = await response.json();
+
+                // Check if the response was successful
+                if (response.status === 200) {
+                    // Build the HTML string to display user details in a table format
+                    let html = `
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <td><strong>Account ID:</strong> ${data.id}</td>
+                                    <td><strong>First Name:</strong> ${data.firstname}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Last Name:</strong> ${data.lastname}</td>
+                                    <td><strong>Phone:</strong> ${data.phone}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h4 class="mt-4">Your Posts</h4>
+                    `;
+
+                    // Check if the user has any posts and display accordingly
+                    if (data.posts.length === 0) {
+                        html += '<p>You have not posted yet.</p>';
+                    } else {
+                        // Loop through each post and create a Bootstrap card for each one
+                        data.posts.forEach(post => {
+                            html += `
+                                <div class="card border border-dark mt-3">
+                                    <div class="card-header bg-dark text-white">
+                                        <h4 class="mb-0">${post.title}</h4>
+                                        <small>${post.created}</small>
+                                    </div>
+                                    <div class="card-body">
+                                        ${post.body}
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    }
+                    // Update the inner HTML of the account-info div with the generated content
+                    document.getElementById('account-info').innerHTML = html;
+                } else {
+                    // If the response status is not 200, display the error message
+                    document.getElementById('account-info').innerHTML = `<div class="alert alert-danger">${data.message}</div>`;
+                }
+            } catch (error) {
+                // Log error to the console and show an alert if fetching fails
+                console.error('Error:', error);
+                document.getElementById('account-info').innerHTML = '<div class="alert alert-danger">Failed to load account information.</div>';
+            }
+        }
+        // Load account information when the DOM content has fully loaded
+        window.addEventListener('DOMContentLoaded', loadAccountInfo);
+    </script>
+{% endblock %}

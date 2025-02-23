@@ -1,0 +1,17 @@
+     /* Enhance the table appearance */
+ .table {
+     background-color: black; /* Light gray background for better readability */
+ }
+/* Customize card styling with a subtle shadow and smooth hover effect */
+.card {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+.card:hover {
+    transform: scale(1.02);
+}
+
+/* Add margin to alerts for spacing */
+.alert {
+    margin-top: 20px;
+}
