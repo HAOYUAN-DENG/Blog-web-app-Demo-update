@@ -128,27 +128,29 @@ def api_login():
             # Inform the client that MFA is required for login
             return jsonify(message="MFA not enabled. Please call /setup_mfa to get your MFA configuration."), 403
     else:
+        # Original Logic
+
         # For users with MFA enabled, verify the provided MFA code
-        if not pyotp.TOTP(user.mfa_key).verify(mfa_code):
-            session["attempted_login"] += 1
-            remaining = 3 - session["attempted_login"]
-            if remaining > 0:
-                return jsonify(message=f"Invalid MFA code. {remaining} attempts remaining."), 403
-            else:
-                return jsonify(message="Maximum login attempts reached, please unlock your account."), 429
+        # if not pyotp.TOTP(user.mfa_key).verify(mfa_code):
+        #     session["attempted_login"] += 1
+        #     remaining = 3 - session["attempted_login"]
+        #     if remaining > 0:
+        #         return jsonify(message=f"Invalid MFA code. {remaining} attempts remaining."), 403
+        #     else:
+        #         return jsonify(message="Maximum login attempts reached, please unlock your account."), 429
 
-        else:
-            session["user_password"] = password  # the plain text password from the login form
-            login_user(user)
-            # Update user log information on login
-            user.log.previous_login = user.log.latest_login
-            user.log.previous_ip = user.log.latest_ip
-            user.log.latest_login = datetime.now()
-            user.log.latest_ip = request.remote_addr
+        #else:
+        session["user_password"] = password  # the plain text password from the login form
+        login_user(user)
+        # Update user log information on login
+        user.log.previous_login = user.log.latest_login
+        user.log.previous_ip = user.log.latest_ip
+        user.log.latest_login = datetime.now()
+        user.log.latest_ip = request.remote_addr
 
-            db.session.commit()
-            logger.warning(f"User login: {user.email}, IP: {user.log.latest_ip}")
-            return jsonify(message="Login successful."), 200
+        db.session.commit()
+        logger.warning(f"User login: {user.email}, IP: {user.log.latest_ip}")
+        return jsonify(message="Login successful."), 200
 
 @api_accounts.route('/logout', methods=['POST'])
 @login_required
